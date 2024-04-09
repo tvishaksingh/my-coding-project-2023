@@ -1,0 +1,64 @@
+using System;
+
+class Program {
+    public static void Main(string[] args) {
+        int[,] seats = new int[6, 6]; // 6 rows and 6 columns (assuming 3 seats per side)
+
+        // Generate random prices (replace with your desired price range)
+        Random random = new Random();
+        for (int row = 0; row < seats.GetLength(0); row++) {
+            for (int column = 0; column < seats.GetLength(1); column++) {
+                // Adjust price range as needed
+                seats[row, column] = random.Next(100, 200);
+
+                // Increase price for window and aisle seats (assuming columns 0, 2, 4 are aisles and 5 is window)
+                if (column == 0 || column == 2 || column == 4 || column == 5) {
+                    seats[row, column] += 20;
+                }
+            }
+        }
+
+        // Display seat information
+        for (int row = 0; row < seats.GetLength(0); row++) {
+            for (int column = 0; column < seats.GetLength(1); column++) {
+                // Convert row and column to seat number format (assuming 0-based indexing)
+                string seatNumber = (row + 1) + (column % 3 == 0 ? 'A' : (column % 3 == 1 ? 'B' : 'C'));
+
+                Console.WriteLine($"Seat: {seatNumber}, Price: ${seats[row, column]}");
+            }
+            Console.WriteLine(); // Add a blank line between rows
+        }
+
+        // Find most and least expensive seats in each row
+        for (int row = 0; row < seats.GetLength(0); row++) {
+            int maxPrice = seats[row, 0];
+            int minPrice = seats[row, 0];
+            int cheaperSeatColumn = 0;
+
+            for (int column = 1; column < seats.GetLength(1); column++) {
+                if (seats[row, column] > maxPrice) {
+                    maxPrice = seats[row, column];
+                }
+                if (seats[row, column] < minPrice) {
+                    minPrice = seats[row, column];
+                    cheaperSeatColumn = column;
+                }
+            }
+
+            // Display most and least expensive seats (and potentially cheaper aisle/window seats)
+            Console.WriteLine($"Row {row + 1}:");
+            Console.WriteLine($"- Most expensive: Seat {(row + 1)}{(maxPrice == seats[row, 0] ? 'A' : (maxPrice == seats[row, 2] ? 'B' : 'C'))}, Price: ${maxPrice}");
+            Console.WriteLine($"- Least expensive: Seat {(row + 1)}{(minPrice == seats[row, 0] ? 'A' : (minPrice == seats[row, 2] ? 'B' : 'C'))}, Price: ${minPrice}");
+
+            // Identify potentially cheaper aisle/window seats (replace with your criteria)
+            if (seats[row, 0] < maxPrice - 10 && seats[row, 0] < seats[row, 1] && seats[row, 0] < seats[row, 2]) {
+                Console.WriteLine($"- Comparatively cheaper aisle seat: Seat {(row + 1)}A, Price: ${seats[row, 0]}");
+            }
+            if (seats[row, 5] < maxPrice - 10 && seats[row, 5] < seats[row, 3] && seats[row, 5] < seats[row, 4]) {
+                Console.WriteLine($"- Comparatively cheaper window seat: Seat {(row + 1)}C, Price: ${seats[row, 5]}");
+            }
+
+            Console.WriteLine(); // Add a blank line between rows
+        }
+    }
+}
