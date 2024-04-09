@@ -1,0 +1,37 @@
+//my code 
+using System;
+
+class Program
+{
+    public static void Main(string[] args)
+    {
+        // Create a 2D integer array
+        int[,] myArray = { { 1, 2 }, { 3, 4 } };
+
+        // Call ArrayToString with the appropriate array type
+        string arrayString = ArrayToString(myArray);
+
+        Console.WriteLine(arrayString);
+    }
+
+    public static string ArrayToString(int[,] arr)
+    {
+        string result = "";
+
+        for (int i = 0; i < arr.GetLength(0); i++)
+        {
+            result += "{";
+            for (int j = 0; j < arr.GetLength(1); j++)
+            {
+                result += arr[i, j];
+                if (j < arr.GetLength(1) - 1)
+                {
+                    result += ", ";
+                }
+            }
+            result += "}";
+            result += "\n";
+        }
+        return result;
+    }
+}.
