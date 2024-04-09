@@ -1,0 +1,72 @@
+import random 
+def dice_game(name):
+  won = False
+  op_guess = random.randint(1,6)
+  print ("\"I'm guessing "+str(op_guess)+".\"")
+  guess_num = int(input("You guess: "))
+  roll = 4
+  print("The dice come up:")
+  print("\t"+str(roll))
+  if roll == guess_num:
+    print("\"Good game!\" "+name+" laughs and hands you your winnings.")
+    wonGame = True
+  elif roll == op_guess:
+    print(name+" sighs. \"Ah well, too bad for you.\" Luckily for your wallet, "+name+" tells you to keep your money")
+  else:
+    print(name+" shrugs. \"I suppose neither of us won. Isn't that just life?\"")
+
+  return won
+
+title = " rescue mission"
+print("welcome \""+ title +"\"\n")
+print("The princess has been kidnapped! You set out to save her.")
+print("But where will you look?")
+print("\t1. The woods")
+print("\t2. The mountains")
+print("\t3. Nowhere- you go home")
+
+winner = False
+choice1 = input()
+while choice1 != "1" and choice1 != "2" and choice1 != "3":
+  print("invalid")
+  choice1 = input()
+num1 = int(choice1)
+if num1 == 1:
+  print("After three days of walking, you come across a strange tower. As you approach, you hear a voice within. The princess is inside!")
+  floors = int(input("But it looks to be a tall tower. How tall?"))
+  print("1. Climb the tower stairs")
+  print("2. Ask her to let down her hair")
+  print("3. Ask that nearby witch for help")
+  choice2 = input()
+  while choice2 != "1" and choice2 != "2" and choice2 != "3":
+    print("invalid")
+    choice2 = input()
+  num2 = int(choice2)
+  if num2 == 1:
+    print("You start climing the stairs")
+    for i in range(floors):
+      print("And climbing...")
+    print("And you made it to the top")
+    winner = True  
+
+  elif num2 == 2:
+    print("You start climing her hair")
+    for i in range(floors//2):
+      print("And climbing...")
+    print("snap you fall")
+  else:
+    print("She challenges you to a game of dice")
+    if dice_game("the witch"):
+      print("\"Alright then, I'll help you!\"")
+      print("With the witch's broom, you make it to the top of the tower and save the princess!")
+      winner = True
+    else:
+      print("The witch flies away")
+
+elif num1 == 2:
+
+  print("After a day of climbing, you find nothing and are forced to go home.")
+else:
+  print("The princess can wait- you'd rather nap.")
+if winner:
+ print("You win!")
