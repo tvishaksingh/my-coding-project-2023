@@ -1,0 +1,9 @@
+using System;
+
+class Program {
+  public static void Main(string[] args){
+    string[] words = {"apple", "heart","bored", "happy","mango","peach","grape","snake","shark","water","pizza","chair","table","house","mouse","light","paper","phone"};
+  int randomIndex = new Random().Next(0, words.Length);
+     return words[randomIndex];
+  }
+}
